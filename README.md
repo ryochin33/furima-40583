@@ -1,24 +1,74 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# テーブル設計
 
-Things you may want to cover:
+## users テーブル
 
-* Ruby version
+| Column             | Type    | Options                         |
+| ------------------ | ------- | ------------------------------- |
+| user_id            | integer | PRIMARY KEY                     |
+| nickname           | string  | NOT NULL                        |
+| email              | string  | NOT NULL, UNIQUE                |
+| encrypted password | string  | NOT NULL                        |
+| last_name          | string  | NOT NULL                        |
+| first_name         | string  | NOT NULL                        |
+| last_name_kana     | string  | NOT NULL                        |
+| first_name_kana    | string  | NOT NULL                        |
+| birthdate          | date    | NOT NULL                        |
 
-* System dependencies
+### Association
 
-* Configuration
+- has_many :items
+- has_many :orders
 
-* Database creation
+## items テーブル
 
-* Database initialization
+| Column                | Type    | Options                        |
+| --------------------- | ------- | ------------------------------ |
+| item_id               | integer | PRIMARY KEY                    |
+| user_id               | integer | NOT NULL, FOREIGN KEY          |
+| image_url             | string  | NOT NULL                       |
+| item_name             | string  | NOT NULL, 最大40字             |
+| item_description      | text    | NOT NULL, 最大1000字           |
+| item_category         | string  | NOT NULL                       |
+| item_condition        | string  | NOT NULL                       |
+| item_shipping_burden  | string  | NOT NULL                       |
+| item_shipping_region  | string  | NOT NULL                       |
+| item_price            | integer | NOT NULL                       |
 
-* How to run the test suite
+### Association
 
-* Services (job queues, cache servers, search engines, etc.)
+- belongs_to :user
+- has_many :orders
 
-* Deployment instructions
+## orders テーブル
 
-* ...
+| Column          | Type    | Options                        |
+| --------------- | ------- | ------------------------------ |
+| order_id        | integer | PRIMARY KEY                    |
+| user_id         | integer | NOT NULL, FOREIGN KEY          |
+| item_id         | integer | NOT NULL, FOREIGN KEY          |
+| phone_number    | string  | NOT NULL                       |
+
+
+### Association
+
+- belongs_to :user
+- belongs_to :item
+- has_one :address
+
+## addresses テーブル
+
+| Column       | Type    | Options                        |
+| ------------ | ------- | ------------------------------ |
+| address_id   | integer | PRIMARY KEY                    |
+| order_id     | integer | NOT NULL, FOREIGN KEY          |
+| postal_code  | string  | NOT NULL                       |
+| prefecture   | string  | NOT NULL                       |
+| city         | string  | NOT NULL                       |
+| address      | string  | NOT NULL                       |
+| building_name | string |                                |
+
+### Association
+
+- belongs_to :order
