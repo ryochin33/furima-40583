@@ -6,7 +6,6 @@
 
 | Column             | Type    | Options                         |
 | ------------------ | ------- | ------------------------------- |
-| user_id            | integer | PRIMARY KEY                     |
 | nickname           | string  | NOT NULL                        |
 | email              | string  | NOT NULL, UNIQUE                |
 | encrypted password | string  | NOT NULL                        |
@@ -23,32 +22,29 @@
 
 ## items テーブル
 
-| Column                | Type    | Options                        |
-| --------------------- | ------- | ------------------------------ |
-| item_id               | integer | PRIMARY KEY                    |
-| user_id               | integer | NOT NULL, FOREIGN KEY          |
-| image_url             | string  | NOT NULL                       |
-| item_name             | string  | NOT NULL, 最大40字             |
-| item_description      | text    | NOT NULL, 最大1000字           |
-| item_category         | string  | NOT NULL                       |
-| item_condition        | string  | NOT NULL                       |
-| item_shipping_burden  | string  | NOT NULL                       |
-| item_shipping_region  | string  | NOT NULL                       |
-| item_price            | integer | NOT NULL                       |
+| Column                | Type       | Options                        |
+| --------------------- | -------    | ------------------------------ |
+| user                  | references | NOT NULL, FOREIGN KEY          |
+| name                  | string     | NOT NULL, 最大40字             |
+| description           | text       | NOT NULL, 最大1000字           |
+| category_id           | integer    | NOT NULL                       |
+| condition_id          | integer    | NOT NULL                       |
+| shipping_burden_id    | integer    | NOT NULL                       |
+| shipping_region_id    | integer    | NOT NULL                       |
+| shipping_time_id      | integer    | NOT NULL                       |
+| price                 | integer    | NOT NULL                       |
 
 ### Association
 
 - belongs_to :user
-- has_many :orders
+- has_one :order
 
 ## orders テーブル
 
-| Column          | Type    | Options                        |
-| --------------- | ------- | ------------------------------ |
-| order_id        | integer | PRIMARY KEY                    |
-| user_id         | integer | NOT NULL, FOREIGN KEY          |
-| item_id         | integer | NOT NULL, FOREIGN KEY          |
-| phone_number    | string  | NOT NULL                       |
+| Column          | Type       | Options                        |
+| --------------- | -------    | ------------------------------ |
+| user            | references | NOT NULL, FOREIGN KEY          |
+| item            | references | NOT NULL, FOREIGN KEY          |
 
 
 ### Association
@@ -59,15 +55,14 @@
 
 ## addresses テーブル
 
-| Column       | Type    | Options                        |
-| ------------ | ------- | ------------------------------ |
-| address_id   | integer | PRIMARY KEY                    |
-| order_id     | integer | NOT NULL, FOREIGN KEY          |
-| postal_code  | string  | NOT NULL                       |
-| prefecture   | string  | NOT NULL                       |
-| city         | string  | NOT NULL                       |
-| address      | string  | NOT NULL                       |
-| building_name | string |                                |
+| Column             | Type       | Options                        |
+| ------------       | -------    | ------------------------------ |
+| order              | references | NOT NULL, FOREIGN KEY          |
+| postal_code        | string     | NOT NULL                       |
+| shipping_region_id | integer    | NOT NULL                       |
+| city               | string     | NOT NULL                       |
+| address            | string     | NOT NULL                       |
+| building_name      | string     |                                |
 
 ### Association
 
