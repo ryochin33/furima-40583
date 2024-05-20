@@ -8,7 +8,7 @@
 | ------------------ | ------- | ------------------------------- |
 | nickname           | string  | NOT NULL                        |
 | email              | string  | NOT NULL, UNIQUE                |
-| encrypted password | string  | NOT NULL                        |
+| encrypted_password | string  | NOT NULL                        |
 | last_name          | string  | NOT NULL                        |
 | first_name         | string  | NOT NULL                        |
 | last_name_kana     | string  | NOT NULL                        |
@@ -63,7 +63,7 @@
 | city               | string     | NOT NULL                       |
 | address            | string     | NOT NULL                       |
 | building_name      | string     |                                |
-
+| phone_number       | string     | NOT NULL                       |
 ### Association
 
 - belongs_to :order
