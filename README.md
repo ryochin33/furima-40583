@@ -6,14 +6,14 @@
 
 | Column             | Type    | Options                         |
 | ------------------ | ------- | ------------------------------- |
-| nickname           | string  | NOT NULL                        |
-| email              | string  | NOT NULL, UNIQUE                |
-| encrypted_password | string  | NOT NULL                        |
-| last_name          | string  | NOT NULL                        |
-| first_name         | string  | NOT NULL                        |
-| last_name_kana     | string  | NOT NULL                        |
-| first_name_kana    | string  | NOT NULL                        |
-| birthdate          | date    | NOT NULL                        |
+| nickname           | string  | null: false                     |
+| email              | string  | null: false, unique: true       |
+| encrypted_password | string  | null: false                     |
+| last_name          | string  | null: false                     |
+| first_name         | string  | null: false                     |
+| last_name_kana     | string  | null: false                     |
+| first_name_kana    | string  | null: false                     |
+| birthdate          | date    | null: false                     |
 
 ### Association
 
@@ -22,17 +22,17 @@
 
 ## items テーブル
 
-| Column                | Type       | Options                        |
-| --------------------- | -------    | ------------------------------ |
-| user                  | references | NOT NULL, FOREIGN KEY          |
-| name                  | string     | NOT NULL, 最大40字             |
-| description           | text       | NOT NULL, 最大1000字           |
-| category_id           | integer    | NOT NULL                       |
-| condition_id          | integer    | NOT NULL                       |
-| shipping_burden_id    | integer    | NOT NULL                       |
-| shipping_region_id    | integer    | NOT NULL                       |
-| shipping_time_id      | integer    | NOT NULL                       |
-| price                 | integer    | NOT NULL                       |
+| Column                | Type       | Options                         |
+| --------------------- | ---------- | ------------------------------- |
+| user                  | references | null: false, foreign_key: true  |
+| name                  | string     | null: false                     |
+| description           | text       | null: false                     |
+| category_id           | integer    | null: false                     |
+| condition_id          | integer    | null: false                     |
+| shipping_burden_id    | integer    | null: false                     |
+| shipping_region_id    | integer    | null: false                     |
+| shipping_time_id      | integer    | null: false                     |
+| price                 | integer    | null: false                     |
 
 ### Association
 
@@ -41,11 +41,10 @@
 
 ## orders テーブル
 
-| Column          | Type       | Options                        |
-| --------------- | -------    | ------------------------------ |
-| user            | references | NOT NULL, FOREIGN KEY          |
-| item            | references | NOT NULL, FOREIGN KEY          |
-
+| Column          | Type       | Options                         |
+| --------------- | ---------- | ------------------------------- |
+| user            | references | null: false, foreign_key: true  |
+| item            | references | null: false, foreign_key: true  |
 
 ### Association
 
@@ -55,15 +54,16 @@
 
 ## addresses テーブル
 
-| Column             | Type       | Options                        |
-| ------------       | -------    | ------------------------------ |
-| order              | references | NOT NULL, FOREIGN KEY          |
-| postal_code        | string     | NOT NULL                       |
-| shipping_region_id | integer    | NOT NULL                       |
-| city               | string     | NOT NULL                       |
-| address            | string     | NOT NULL                       |
-| building_name      | string     |                                |
-| phone_number       | string     | NOT NULL                       |
+| Column             | Type       | Options                         |
+| ------------------ | ---------- | ------------------------------- |
+| order              | references | null: false, foreign_key: true  |
+| postal_code        | string     | null: false                     |
+| shipping_region_id | integer    | null: false                     |
+| city               | string     | null: false                     |
+| address            | string     | null: false                     |
+| building_name      | string     |                                 |
+| phone_number       | string     | null: false                     |
+
 ### Association
 
 - belongs_to :order
