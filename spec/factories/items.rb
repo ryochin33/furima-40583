@@ -4,7 +4,7 @@ FactoryBot.define do
     association :user
     name { Faker::Commerce.product_name }
     description { Faker::Lorem.paragraph }
-    category_id { 1}
+    category_id { 1 }
     condition_id { 1 }
     shipping_burden_id { 1 }
     shipping_region_id { 1 }
