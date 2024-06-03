@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :set_collections, only: [:edit, :update]
   before_action :check_item_owner, only: [:edit, :update]
+  before_action :redirect_if_sold_out, only: [:edit, :update,]
 
 
 
@@ -73,5 +74,10 @@ class ItemsController < ApplicationController
     unless @item.user_id == current_user.id
       redirect_to root_path
     end
+  end
+    def redirect_if_sold_out
+      if @item.order.present?
+        redirect_to root_path, alert: "this item is sold out"
+      end
   end
 end
